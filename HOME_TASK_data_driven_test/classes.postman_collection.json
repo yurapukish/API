@@ -1,0 +1,162 @@
+{
+	"info": {
+		"_postman_id": "425d2f76-09a1-4565-b5ca-5961c96941bd",
+		"name": "classes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "equl_class",
+			"item": [
+				{
+					"name": "/age_europe (E+B)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var age = pm.iterationData.get(\"age\");\r",
+									"var endpoint = pm.iterationData.get(\"path\");\r",
+									"\r",
+									"if (endpoint == \"/age_europe\") {\r",
+									"    if ( age >= 0 && age <= 17 ){\r",
+									"    pm.test(\"SEND REQUEST WITH AGE :  \" + age + \" CHeck 'Status code is 200; And age_typ is (underage) \", function () {\r",
+									"        pm.response.to.have.status(200);\r",
+									"        pm.expect(pm.response.json().age_type).to.eql(\"underage\");\r",
+									"    });\r",
+									"} else if (age >= 18 && age <= 50 ){\r",
+									"    pm.test(\"SEND REQUEST WITH AGE : \" + age + \" CHeck 'Status code is 200; And age_typ is (adult) \", function () {\r",
+									"        pm.response.to.have.status(200);\r",
+									"        pm.expect(pm.response.json().age_type).to.eql(\"adult\");\r",
+									"    });\r",
+									"} else if (age > 50 && age < 101 ){\r",
+									"    pm.test(\"SEND REQUEST WITH AGE : \" + age + \" CHeck 'Status code is 200; And age_typ is (antiquity) \", function () {\r",
+									"        pm.response.to.have.status(200);\r",
+									"        pm.expect(pm.response.json().age_type).to.eql(\"antiquity\");\r",
+									"    });\r",
+									"} else if (age < 0 || age >= 101) {\r",
+									"     pm.test(\"SEND REQUEST WITH AGE :  \" + age + \" CHeck 'Status code is 500'\", function () {\r",
+									"        pm.response.to.have.status(500);\r",
+									"    });\r",
+									"} \r",
+									"} else if (endpoint == \"/age_usa\"){\r",
+									"    if ( age >= 0 && age <= 20 ){\r",
+									"    pm.test(\"SEND REQUEST WITH AGE :  \" + age + \" CHeck 'Status code is 200; And age_typ is (underage) \", function () {\r",
+									"        pm.response.to.have.status(200);\r",
+									"        pm.expect(pm.response.json().age_type).to.eql(\"underage\");\r",
+									"    });\r",
+									"} else if (age >= 21 && age <= 50 ){\r",
+									"    pm.test(\"SEND REQUEST WITH AGE : \" + age + \" CHeck 'Status code is 200; And age_typ is (adult) \", function () {\r",
+									"        pm.response.to.have.status(200);\r",
+									"        pm.expect(pm.response.json().age_type).to.eql(\"adult\");\r",
+									"    });\r",
+									"} else if (age >= 51 && age <= 100 ){\r",
+									"    pm.test(\"SEND REQUEST WITH AGE : \" + age + \" CHeck 'Status code is 200; And age_typ is (antiquity) \", function () {\r",
+									"        pm.response.to.have.status(200);\r",
+									"        pm.expect(pm.response.json().age_type).to.eql(\"antiquity\");\r",
+									"    });\r",
+									"} else if (age < 0 || age >= 101) {\r",
+									"     pm.test(\"SEND REQUEST WITH AGE :  \" + age + \" CHeck 'Status code is 500'\", function () {\r",
+									"        pm.response.to.have.status(500);\r",
+									"    });\r",
+									"}\r",
+									"}\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "age",
+									"value": "{{age}}",
+									"type": "text"
+								},
+								{
+									"key": "age",
+									"value": "0",
+									"type": "text",
+									"disabled": true
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}{{path}}",
+							"host": [
+								"{{url}}{{path}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "116.203.27.46:5002"
+		},
+		{
+			"key": "test_value",
+			"value": ""
+		},
+		{
+			"key": "tests",
+			"value": ""
+		},
+		{
+			"key": "test",
+			"value": ""
+		},
+		{
+			"key": "my_positive_test",
+			"value": ""
+		},
+		{
+			"key": "my_positive_tests",
+			"value": ""
+		}
+	]
+}
