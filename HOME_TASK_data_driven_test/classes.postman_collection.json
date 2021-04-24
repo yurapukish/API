@@ -94,12 +94,7 @@
 									"type": "text",
 									"disabled": true
 								}
-							],
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							]
 						},
 						"url": {
 							"raw": "{{url}}{{path}}",

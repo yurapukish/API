@@ -1,0 +1,128 @@
+Swagger - https://petstore.swagger.io/#/pet/updatePet
+Random data generator - https://mockaroo.com/ 
+Pairwise online tool - https://pairwise.teremokgames.com/ 
+
+Learning Center:
+https://learning.postman.com/docs/getting-started/installation-and-updates/
+
+HTTP Status Codes:
+https://httpstatuses.com/
+
+Postman Sandbox API reference:
+https://elispostman.github.io/docs/v6/postman/scripts/postman_sandbox_api_reference
+
+Dynamic variables:
+https://learning.postman.com/docs/writing-scripts/script-references/variables-list/
+
+HTTP заголовки:
+https://developer.mozilla.org/uk/docs/Web/HTTP/%D0%97%D0%B0%D0%B3%D0%BE%D0%BB%D0%BE%D0%B2%D0%BA%D0%B8
+
+Как отправить через Postman картинку:
+http://okiseleva.blogspot.com/2018/11/postman.html
+
+Postman Cheat Sheet:
+https://www.toolsqa.com/postman/postman-cheat-sheet/
+
+Newman:
+https://www.npmjs.com/package/newman
+
+JSON Tutorial:
+https://www.tutorialspoint.com/json/index.htm
+
+JSON formatter & validator:
+https://jsonformatter.curiousconcept.com/
+
+Free Online JSON to JSON Schema Converter:
+https://www.liquid-technologies.com/online-json-to-schema-converter
+
+JSON To XML Converters:
+https://www.convertjson.com/json-to-xml.htm
+http://www.utilities-online.info/xmltojson/#.YCbrKmgzaM_
+
+Chai Assertion Library:
+https://www.chaijs.com/api/bdd/
+
+JavaScript:
+https://developer.mozilla.org/en-US/docs/Web/JavaScript
+
+RESTful API Tutorial:
+https://www.restapitutorial.com/
+
+_______________________________________________________
+
+Timeouts, and why we don't use them
+➢ setTimeout in Pre-request Scripts will set delay before request sending
+➢ setTimeout in Tests will set delay after request sending
+
+What delay value should we set? Nobody knows. Usually it’s a value found after a few
+experiments.
+❖ setNextRequest() function allows us not to waste time
+➢ postman.setNextRequest("Needed request name");
+
+________________________________________________________
+
+Run tests in command line:
+
+Install Node.js
+https://nodejs.org/en/download/
+
+Install Newman:
+https://www.npmjs.com/package/newman
+
+❖ Open terminal
+➢ npm install -g newman
+➢ npm install -g newman-reporter-html
+➢ npm -version
+
+❖ Export Postman collections, environment variables and global to your local
+machine
+
+❖ Go to the folder with collection and variables
+➢ cd path/to/your/folder/with/collection
+
+❖ Run you tests
+➢ newman run Newman.postman_collection.json -e Newman-env.postman_environment.json -g
+DEMO.postman_globals.json
+
+❖ Run you tests and generate the report:
+➢ newman run Newman.postman_collection.json -e Newman-env.postman_environment.json -g
+DEMO.postman_globals.json -r cli,html
+
+or just generate the report:
+newman run Newman.postman_collection.json -e Newman-env.postman_environment.json -g 
+DEMO.postman_globals.json -r html
+
+❖ Locate new-created folder newman/ inside you work directory and enjoy the report
+___________________________________________________________
+
+Tere's some better html report:
+https://www.npmjs.com/package/newman-reporter-htmlextra
+
+❖ Open terminal
+➢ npm install -g newman-reporter-htmlextra
+
+newman run Newman.postman_collection.json -e Newman-env.postman_environment.json -g 
+DEMO.postman_globals.json -r cli,htmlextra
+
+for Jenkins:
+C:\Users\katri\AppData\Roaming\npm\newman run D:\IIT\API_Workshop\demo\Petstore.postman_collection.json -e D:\IIT\API_Workshop\demo\Petstore.postman_environment.json -d AllCombinations.csv -r cli,htmlextra 
+
+Cmd commands to start, stop or restart the Jenkins server:
+https://www.oreilly.com/library/view/hands-on-continuous-integration/9781789130485/5f1d3f8c-6ee0-499f-97ec-81b5feff6ff5.xhtml
+$ C:\Program Files\Jenkins>jenkins.exe start
+$ C:\Program Files\Jenkins>jenkins.exe stop
+$ C:\Program Files\Jenkins>jenkins.exe restart
+
+___________________________________________________________
+
+У випадку, якщо нам потрібні значення змінних, які потім будемо перевикористовувати для інших запитів (наприклад токени, що отримуємо при логіні чи реєстрації) 
+то зазвичай використовую наступний скріпт для того щоб знячення змінних не стиралися при неуспішному запиті:
+ 
+const jsonData = pm.response.json();                                       //розпарсити JSON
+if (pm.response.to.be.success) {                                           //перевіряє що запит пройшов успішно
+    pm.environment.set("accessToken", jsonData.accessToken);               //якщо запит успішний то записує значення в змінні
+    pm.environment.set("refreshToken", jsonData.refreshToken);
+    pm.environment.set("firstLogin", jsonData.firstLogin);
+    } else {
+            postman.setNextRequest("Refresh token (Mobile apps and CRM)"); //якщо запит не успішний то ранить наступний запит (для рану) і "пусті" значення в змінні не записуються
+        }
